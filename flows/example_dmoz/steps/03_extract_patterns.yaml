@@ -1,0 +1,3 @@
+cv_folds: 3
+alpha_grid: [0.01, 0.05, 0.1, 0.5, 1.0]
+output_dir: ./outputs/dmoz_health/extract_patterns

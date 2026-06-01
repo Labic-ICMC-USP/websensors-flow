@@ -1,0 +1,7 @@
+test_size: 0.25
+random_state: 42
+max_features: 5000
+min_df: 2
+ngram_range: [1, 2]
+stop_words: english
+output_dir: ./outputs/dmoz_health/preprocess_text
