@@ -1,0 +1,89 @@
+project:
+  name: dmoz_health_text_classification
+  version: "0.3.0"
+  description: "Text classification flow for the DMOZ Health collection using TF-IDF and Multinomial Naive Bayes."
+
+environment:
+  name: local
+  deployment_id: notebook
+  owner: websensors-team
+  tags:
+    system: websensors-flow
+    domain: text-classification
+
+runtime:
+  report_dir: ./outputs/dmoz_health/reports
+  fail_fast: true
+  include_traceback: true
+  raise_on_failure: false
+  console:
+    enabled: true
+    progress: true
+    show_metrics: true
+
+observability:
+  mlflow:
+    enabled: true
+    tracking_uri_env: MLFLOW_TRACKING_URI
+    tracking_uri: http://127.0.0.1:5000
+    experiment_name_env: MLFLOW_EXPERIMENT_NAME
+    experiment_name: websensors-flow-dmoz-health
+    run_name: dmoz-health-local
+    http_request_timeout: 3
+    connect_timeout_seconds: 3
+    auth:
+      enabled: false
+      username_env: MLFLOW_TRACKING_USERNAME
+      password_env: MLFLOW_TRACKING_PASSWORD
+      token_env: MLFLOW_TRACKING_TOKEN
+
+  graylog:
+    enabled: false
+    host_env: GRAYLOG_HOST
+    host: 127.0.0.1
+    port_env: GRAYLOG_PORT
+    port: 12201
+    protocol: tcp
+    facility: websensors-flow
+    level: INFO
+    connect_timeout_seconds: 3
+    auth:
+      enabled: false
+      username_env: GRAYLOG_USERNAME
+      password_env: GRAYLOG_PASSWORD
+      token_env: GRAYLOG_TOKEN
+
+pipeline:
+  params:
+    random_state: 42
+    test_size: 0.25
+    cv_folds: 3
+
+steps:
+  - name: ingest_data
+    class_path: projects.example_dmoz.ingest_data.IngestDataStep
+    config_path: steps/01_ingest_data.yaml
+
+  - name: preprocess_text
+    class_path: projects.example_dmoz.preprocess_text.PreprocessTextStep
+    config_path: steps/02_preprocess_text.yaml
+
+  - name: extract_patterns
+    class_path: projects.example_dmoz.extract_patterns.ExtractPatternsStep
+    config_path: steps/03_extract_patterns.yaml
+
+  - name: postprocess_model
+    class_path: projects.example_dmoz.postprocess_model.PostprocessModelStep
+    config_path: steps/04_postprocess_model.yaml
+
+api:
+  enabled: false
+  title: "DMOZ Health WebSensors Flow API"
+  description: "Run the DMOZ Health text classification flow asynchronously."
+  version: "0.3.0"
+  host: 127.0.0.1
+  port: 8000
+  endpoint: /runs
+  workers: 2
+  return_output: false
+  input_fields: {}
