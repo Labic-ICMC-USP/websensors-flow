@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "websensors-flow"
+version = "0.3.0"
+description = "Object-agnostic all-or-nothing pipeline runner with optional Graylog, MLflow, and FastAPI execution."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "WebSensors Team" }
+]
+keywords = ["pipeline", "observability", "graylog", "mlflow", "fastapi", "websensors", "pydantic"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+dependencies = [
+  "pydantic>=2.0,<3.0",
+  "PyYAML>=6.0",
+  "tqdm>=4.66",
+  "rich>=13.7",
+]
+
+[project.optional-dependencies]
+observability = [
+  "graypy>=2.1.0",
+  "mlflow>=2.11.0",
+  "psutil>=5.9",
+]
+api = [
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+]
+tutorial = [
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "joblib>=1.3",
+  "numpy>=1.24",
+  "notebook>=7.0",
+]
+docs = [
+  "mkdocs>=1.5",
+  "mkdocs-material>=9.5",
+]
+test = [
+  "pytest>=8.0",
+  "rich>=13.7",
+]
+all = [
+  "graypy>=2.1.0",
+  "mlflow>=2.11.0",
+  "psutil>=5.9",
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "joblib>=1.3",
+  "numpy>=1.24",
+  "notebook>=7.0",
+  "mkdocs>=1.5",
+  "mkdocs-material>=9.5",
+  "pytest>=8.0",
+  "rich>=13.7",
+]
+
+[project.scripts]
+websensors-flow-run = "websensors_flow.cli:main_run"
+websensors-flow-api = "websensors_flow.cli:main_api"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src"]

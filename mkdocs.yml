@@ -1,0 +1,30 @@
+site_name: WebSensors Flow
+site_description: Object-agnostic all-or-nothing flow runner
+site_url: https://example.org/websensors-flow/
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.instant
+    - content.code.copy
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Configuration: configuration.md
+  - Step contract: step-contract.md
+  - All-or-nothing execution: all-or-nothing.md
+  - API mode: api-reference.md
+  - Tutorial:
+      - DMOZ Health: tutorial/dmoz-health.md
+  - Observability:
+      - Overview: observability/index.md
+      - Graylog: observability/graylog.md
+      - MLflow: observability/mlflow.md
+      - Reports: observability/reports.md
+  - Testing: testing.md
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
