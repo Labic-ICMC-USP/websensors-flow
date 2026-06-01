@@ -163,6 +163,55 @@ Both tutorials show how WebSensors Flow can send metrics, parameters, artifacts,
 
 ---
 
+## Main features
+
+- Sequential pipeline execution with an all-or-nothing policy.
+- YAML configuration for the project, runtime, observers, API mode, and steps.
+- Optional Graylog and MLflow observers.
+- Terminal output designed for SSH sessions.
+- FastAPI mode with Swagger and asynchronous run status tokens.
+- Step-level metrics, parameters, artifacts, logs, and repeated metric records.
+- MLflow support for datasets, models, metrics, parameters, artifacts, nested runs, and system metrics.
+
+## Install
+
+```bash
+pip install -e .[all]
+```
+
+## Run the example flow
+
+```bash
+websensors-flow-run --config flows/example_dmoz/flow.yaml
+```
+
+## Requirements
+
+To use the observability examples, you need:
+
+- **MLflow**, to track metrics, parameters, artifacts, and models.
+- **Graylog**, to centralize logs.
+
+For simple tests, MLflow can be installed and executed locally:
+
+```bash
+pip install mlflow
+mlflow server --host 0.0.0.0 --port 5000
+````
+
+Then open:
+
+```text
+http://localhost:5000
+```
+
+For Graylog, we recommend using **Docker** or **Docker Compose**, especially for local tests and simple deployments.
+
+WebSensors Flow does not replace MLflow or Graylog. It only sends pipeline information to these tools through observers.
+
+```
+```
+
 ## Summary
 
 WebSensors Flow helps build observable AI pipelines without tying the pipeline logic to a specific monitoring tool.
