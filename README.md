@@ -209,8 +209,7 @@ For Graylog, we recommend using **Docker** or **Docker Compose**, especially for
 
 WebSensors Flow does not replace MLflow or Graylog. It only sends pipeline information to these tools through observers.
 
-```
-```
+
 
 ## Summary
 
